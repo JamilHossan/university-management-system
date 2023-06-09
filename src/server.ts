@@ -1,11 +1,22 @@
-const express = require('express')
-const app = express()
-const port = 3000
 
-// app.get('/', (req, res) => {
-//   res.send('Hello World!')
-// })
+import mongoose from 'mongoose'
+import app from './app'
+import config from './config/index'
+async function fight() {
+ 
+  try{
+    await mongoose.connect(config.database_url as string)
+    console.log(`database connection successfully`);
+    app.listen(config.port, () =>{
+      console.log(`the port is connected at port ${config.port}`)
+    })
+  }
+  catch(err){
+    console.log('server is not connected',err)
+  }
+  
+}
+fight();
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+
+
